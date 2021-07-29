@@ -4,6 +4,7 @@ import generactive.model.Group;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupRepository {
 
@@ -28,7 +29,7 @@ public class GroupRepository {
     }
 
     public Group findGroupById(int groupId) {
-        for (Group group: groups) {
+        for (Group group : groups) {
             if (group.getId() == groupId) {
                 return group;
             }
@@ -40,13 +41,33 @@ public class GroupRepository {
     public List<Group> getGroupsHierarchy() {
         List<Group> rootGroups = new ArrayList<>();
 
-        for (Group group: groups) {
+        for (Group group : groups) {
             if (group.getParentGroup() == null) {
                 rootGroups.add(group);
             }
         }
 
         return rootGroups;
+    }
+
+    public List<Group> findByGroupName(String name) {
+        return sInstance.groups.stream()
+                .filter(group -> group.getName().equals(name))
+                .collect(Collectors.toList());
+    }
+
+    public static List<Group> findByGroupId(int id){
+        return sInstance.groups.stream()
+                .filter(group -> group.getId() == id)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Group> findSubGroupsByParent(Group parentGroup){
+        return sInstance.groups.stream()
+                .filter(group -> group.getParentGroup() != null)
+                .filter(group -> group.getParentGroup().hashCode() == parentGroup.hashCode())
+                .filter(group -> group.getParentGroup().equals(parentGroup))
+                .collect(Collectors.toList());
     }
 
     private GroupRepository() {

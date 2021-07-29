@@ -22,7 +22,7 @@ public final class GroupMock {
         Group group4 = getGroup();
         Group group5 = getGroup();
         Group group6 = getGroup();
-        Group group7 = new Group(IdGenerator.getNext(Type.GROUP),"myGroup");
+        Group group7 = new Group(IdGenerator.getNext(Type.GROUP),"myGroup"); //for test
 
         group1.addSubGroup(group2);
         group2.addSubGroup(group3);
