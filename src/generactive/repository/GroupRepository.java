@@ -56,16 +56,15 @@ public class GroupRepository {
                 .collect(Collectors.toList());
     }
 
-    public static List<Group> findByGroupId(int id){
+    public List<Group> findByGroupId(int id){
         return sInstance.groups.stream()
                 .filter(group -> group.getId() == id)
                 .collect(Collectors.toList());
     }
 
-    public static List<Group> findSubGroupsByParent(Group parentGroup){
+    public List<Group> findSubGroupsByParent(Group parentGroup){
         return sInstance.groups.stream()
                 .filter(group -> group.getParentGroup() != null)
-                .filter(group -> group.getParentGroup().hashCode() == parentGroup.hashCode())
                 .filter(group -> group.getParentGroup().equals(parentGroup))
                 .collect(Collectors.toList());
     }

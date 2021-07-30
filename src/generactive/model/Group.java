@@ -68,4 +68,25 @@ public class Group {
             item.print();
         }
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals (Object obj) {
+        if (obj != null) {
+            if (obj instanceof Group) {
+                Group group = (Group) obj;
+                return (this.getId() == group.getId());
+            }else {
+                System.out.println("parameter is not Group");
+                return false;
+            }
+        }else {
+            System.out.println("parameter is null!!!");
+            return false;
+        }
+    }
 }
